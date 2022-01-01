@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  api:
+    image: webb-tracker-api
+    build: .
+  bot:
+    image: webb-tracker-bot
+    build: webb-tracker-bot/.
+    depends_on:
+      - api
+    env_file:
+      - token.env
