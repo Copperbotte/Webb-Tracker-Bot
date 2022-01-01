@@ -6,7 +6,8 @@ Run the following commands:
 ```batch
 git clone https://github.com/Copperbotte/Webb-Tracker-Bot.git
 mkdir webb-tracker-api
-git clone https://github.com/avatsaev/webb-tracker-api.git /webb-tracker-api
+git clone https://github.com/avatsaev/webb-tracker-api.git ./webb-tracker-api
+docker build -t webb-tracker-api .
 ```
 
 Create a new file called `Token.env` in the current directory.
