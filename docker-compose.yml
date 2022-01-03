@@ -3,7 +3,7 @@ version: "3"
 services:
   api:
     image: webb-tracker-api
-    build: .
+    build: webb-tracker-api/.
   bot:
     image: webb-tracker-bot
     build: webb-tracker-bot/.

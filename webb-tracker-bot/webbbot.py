@@ -31,8 +31,9 @@ async def cmd_webb(message, cmd, args):
     # thanks parse
     # webb-tracker-api container running with dns hostname 'api'
     # it takes a few seconds to load, so retry every second while unavailable
-    API_ENDPOINT = "http://api:8001/track"
+    #API_ENDPOINT = "http://api:8001/track"
     #API_ENDPOINT = "http://localhost:8001/track"
+    API_ENDPOINT = "https://api.jwst-hub.com/track"
     API_RETRY_TIMEOUT_SECONDS = 1
 
     print("polling webb api...")
@@ -57,23 +58,23 @@ async def cmd_webb(message, cmd, args):
     e.add_field(name=':gear: Active Deployment Step', value=d['currentDeploymentStep'], inline=False)
 
     e.add_field(name=':stopwatch: Elapsed Time', value=D_str, inline=True)
-    e.add_field(name=':hourglass: Percent Completed', value='%s%%'%d['percentageCompleted'], inline=True)
+    e.add_field(name=':hourglass: Percent Completed', value='%f%%'%d['percentageCompleted'], inline=True)
 
-    pct = float(d['percentageCompleted']) / 100
+    pct = d['percentageCompleted'] / 100
     e.add_field(name=u'\U0001F30E' + u'\U00002B1B'*5 + u'\U0001F317' + u'\U00002B1B'*19 + u'\U0001F6F8',
                 value=u'\U00002B1B'*int(pct*27) + u'\U0001F6F0' + u'\U00002B1B'*int((1.0-pct)*27), inline=False)
     
-    e.add_field(name=':earth_americas: Distance from Earth', value='%s Km'%d['distanceEarthKm'], inline=True)
-    e.add_field(name=':satellite_orbital: Distance from L2', value='%s Km'%d['distanceL2Km'], inline=True)
-    e.add_field(name=':rocket: Current Speed', value='%s ᴷᴹ/s'%d['speedKmS'], inline=True)
+    e.add_field(name=':earth_americas: Distance from Earth', value='%f Km'%d['distanceEarthKm'], inline=True)
+    e.add_field(name=':satellite_orbital: Distance from L2', value='%f Km'%d['distanceL2Km'], inline=True)
+    e.add_field(name=':rocket: Current Speed', value='%f ᴷᴹ/s'%d['speedKmS'], inline=True)
     
-    warmString = '%s°C %s°C'%(d['tempC']['tempWarmSide1C'], d['tempC']['tempWarmSide2C'])
-    coolString = '%s°C %s°C'%(d['tempC']['tempCoolSide1C'], d['tempC']['tempCoolSide2C'])
+    warmString = '%f°C %f°C'%(d['tempC']['tempWarmSide1C'], d['tempC']['tempWarmSide2C'])
+    coolString = '%f°C %f°C'%(d['tempC']['tempCoolSide1C'], d['tempC']['tempCoolSide2C'])
     e.add_field(name=':hot_face: Warm Side Temperatures', value=warmString, inline=True)
     e.add_field(name=':cold_face: Cool Side Temperatures', value=coolString, inline=True)
 
-    hpct = max(float(d['tempC']['tempWarmSide1C']), float(d['tempC']['tempWarmSide2C']))
-    cpct = min(float(d['tempC']['tempCoolSide1C']), float(d['tempC']['tempCoolSide2C']))
+    hpct = max(d['tempC']['tempWarmSide1C'], d['tempC']['tempWarmSide2C'])
+    cpct = min(d['tempC']['tempCoolSide1C'], d['tempC']['tempCoolSide2C'])
     hpct = (hpct + 233)/(85+233)
     cpct = (cpct + 233)/(85+233)
     e.add_field(name=u'\U0001F7E5' + u'\U0001F7E5'*int(hpct*27) + u'\U00002B1B'*int((1-hpct)*27),
