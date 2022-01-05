@@ -58,18 +58,18 @@ async def cmd_webb(message, cmd, args):
     e.add_field(name=':gear: Active Deployment Step', value=d['currentDeploymentStep'], inline=False)
 
     e.add_field(name=':stopwatch: Elapsed Time', value=D_str, inline=True)
-    e.add_field(name=':hourglass: Percent Completed', value='%f%%'%d['percentageCompleted'], inline=True)
+    e.add_field(name=':hourglass: Percent Completed', value='%.2f%%'%d['percentageCompleted'], inline=True)
 
     pct = d['percentageCompleted'] / 100
     e.add_field(name=u'\U0001F30E' + u'\U00002B1B'*5 + u'\U0001F317' + u'\U00002B1B'*19 + u'\U0001F6F8',
                 value=u'\U00002B1B'*int(pct*27) + u'\U0001F6F0' + u'\U00002B1B'*int((1.0-pct)*27), inline=False)
     
-    e.add_field(name=':earth_americas: Distance from Earth', value='%f Km'%d['distanceEarthKm'], inline=True)
-    e.add_field(name=':satellite_orbital: Distance from L2', value='%f Km'%d['distanceL2Km'], inline=True)
-    e.add_field(name=':rocket: Current Speed', value='%f ᴷᴹ/s'%d['speedKmS'], inline=True)
+    e.add_field(name=':earth_americas: Distance from Earth', value='%.2f Km'%d['distanceEarthKm'], inline=True)
+    e.add_field(name=':satellite_orbital: Distance from L2', value='%.2f Km'%d['distanceL2Km'], inline=True)
+    e.add_field(name=':rocket: Current Speed', value='%.2f ᴹ/s'%(1000*d['speedKmS']), inline=True)
     
-    warmString = '%f°C %f°C'%(d['tempC']['tempWarmSide1C'], d['tempC']['tempWarmSide2C'])
-    coolString = '%f°C %f°C'%(d['tempC']['tempCoolSide1C'], d['tempC']['tempCoolSide2C'])
+    warmString = '%.2f°C %.2f°C'%(d['tempC']['tempWarmSide1C'], d['tempC']['tempWarmSide2C'])
+    coolString = '%.2f°C %.2f°C'%(d['tempC']['tempCoolSide1C'], d['tempC']['tempCoolSide2C'])
     e.add_field(name=':hot_face: Warm Side Temperatures', value=warmString, inline=True)
     e.add_field(name=':cold_face: Cool Side Temperatures', value=coolString, inline=True)
 

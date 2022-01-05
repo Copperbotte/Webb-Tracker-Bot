@@ -6,7 +6,8 @@ Add it to your server here! https://discord.com/oauth2/authorize?client_id=92674
 Run the following commands:
 ```batch
 git clone https://github.com/Copperbotte/Webb-Tracker-Bot.git
-git clone https://github.com/avatsaev/webb-tracker-api.git
+mkdir webb-tracker-api
+git clone https://github.com/avatsaev/webb-tracker-api.git ./webb-tracker-api
 docker build -t webb-tracker-api .
 docker build -t webb-tracker-bot .
 ```
